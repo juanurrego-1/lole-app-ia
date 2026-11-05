@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOLE-APP | Encuentra el mejor lugar para comprar en el Centro de Medellín</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --noche: #06162F;
+            --profundo: #0C2448;
+            --champagne: #E5BF85;
+            --calido: #EFAD4D;
+            --bronce: #C79E75;
+            --blanco: #F4F1EA;
+            --gris: #696E75;
+        }
+
+        body {
+            background: var(--noche);
+            color: var(--blanco);
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: var(--noche) !important;
+            border-bottom: 2px solid var(--champagne);
+        }
+
+        .navbar-brand {
+            color: var(--champagne) !important;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-size: 1.35rem;
+        }
+
+        .nav-link {
+            color: var(--blanco) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--calido) !important;
+        }
+
+        .btn-oro {
+            background: var(--calido);
+            color: #06162F;
+            font-weight: 800;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-oro:hover {
+            background: var(--champagne);
+            color: #06162F;
+        }
+
+        .btn-linea {
+            border: 2px solid var(--champagne);
+            color: var(--champagne);
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .hero {
+            padding: 70px 0 50px;
+            background: linear-gradient(180deg, #06162F, #0C2448);
+            border-bottom: 2px solid var(--bronce);
+        }
+
+        .hero h1 {
+            color: var(--champagne);
+            font-weight: 900;
+            font-size: 2.7rem;
+            line-height: 1.1;
+        }
+
+        .badge-zona {
+            background: var(--champagne);
+            color: #06162F;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: .85rem;
+        }
+
+        .buscador {
+            background: var(--blanco);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .buscador input,
+        .buscador select {
+            flex: 1;
+            min-width: 180px;
+            border: 1px solid var(--bronce);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .card-tienda {
+            background: var(--profundo);
+            border: 1px solid var(--bronce);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 100%;
+            transition: .2s;
+        }
+
+        .card-tienda:hover {
+            transform: translateY(-3px);
+            border-color: var(--champagne);
+        }
+
+        .card-tienda.activa {
+            border: 3px solid var(--calido);
+            box-shadow: 0 0 0 3px rgba(239, 173, 77, .3);
+        }
+
+        .card-tienda img {
+            height: 170px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .precio-calidad {
+            color: var(--calido);
+            font-weight: 900;
+        }
+
+        .seccion-clara {
+            background: var(--blanco);
+            color: #06162F;
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .seccion-clara input,
+        .seccion-clara select,
+        .seccion-clara textarea {
+            border: 1px solid var(--bronce);
+            border-radius: 10px;
+            padding: 11px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .paso {
+            background: var(--profundo);
+            border: 1px solid var(--bronce);
+            border-radius: 16px;
+            padding: 24px;
+            height: 100%;
+        }
+
+        .paso span {
+            font-size: 2.2rem;
+            color: var(--calido);
+            font-weight: 900;
+        }
+
+        .mapa {
+            height: 380px;
+            background: #0a2a52;
+            border: 2px solid var(--bronce);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .pin {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            background: var(--calido);
+            color: #06162F;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid white;
+            font-weight: 900;
+        }
+
+        .pin i {
+            transform: rotate(45deg);
+        }
+
+        .pin.activo {
+            background: var(--champagne);
+            scale: 1.2;
+        }
+
+        .chip {
+            border: 1px solid var(--champagne);
+            color: var(--champagne);
+            border-radius: 20px;
+            padding: 6px 12px;
+            cursor: pointer;
+            background: transparent;
+            font-size: .9rem;
+        }
+
+        .chip.activo {
+            background: var(--champagne);
+            color: #06162F;
+            font-weight: 800;
+        }
+
+        footer {
+            border-top: 2px solid var(--bronce);
+            color: var(--gris);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">📍🛍️ LOLE-APP</a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#buscar">Buscar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mapa">Mapa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shopper">Personal Shopper</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tiendas">Tiendas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#como">Cómo funciona</a></li>
+                </ul>
+                <a href="#buscar" class="btn-oro ms-lg-3">Buscar comercio</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="buscar">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <span class="badge-zona">JUNÍN • EL HUECO • CARABOBO • PARQUE BERRÍO</span>
+                    <h1 class="mt-3">Encuentra el mejor lugar para comprar en el Centro, sin conocer el Centro.</h1>
+                    <p>Compara tiendas por precio-calidad y encuentra tu Personal Shopper si no quieres bajar.</p>
+                    <form class="buscador" onsubmit="buscarHero(event)">
+                        <input id="qHero" placeholder="¿Qué buscas? Ej: tenis, audífonos, celular...">
+                        <button class="btn-oro" type="submit">Buscar</button>
+                    </form>
+                    <div class="d-flex gap-2 flex-wrap mt-3">
+                        <a href="#mapa" class="btn-linea">Ver mapa del Centro</a>
+                        <a href="#shopper" class="btn-oro">Pedir Personal Shopper</a>
+                    </div>
+                    <div class="d-flex gap-4 mt-4 flex-wrap">
+                        <div><b style="color:var(--champagne);font-size:1.4rem;">+120</b><br><small>Tiendas</small>
+                        </div>
+                        <div><b style="color:var(--champagne);font-size:1.4rem;">4.8/5</b><br><small>Valoración
+                                promedio</small></div>
+                        <div><b style="color:var(--champagne);font-size:1.4rem;">4</b><br><small>Zonas del
+                                Centro</small></div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <img src="https://images.unsplash.com/photo-1481437156560-3205f6a55735?w=800"
+                        class="w-100 rounded-4" style="border:2px solid var(--bronce);height:340px;object-fit:cover;"
+                        alt="Centro Medellín">
+                    <p class="small mt-2 text-center" style="color:#bdbdbd;">El Hueco • Junín • Carabobo • Parque Berrío
+                        • Metro</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="como" class="container my-5">
+        <h2 style="color:var(--champagne);font-weight:900;">Cómo funciona</h2>
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <div class="paso"><span>01</span>
+                    <h4>Busca lo que necesitas</h4>
+                    <p>Escribe tenis, tecnología, moda, lo que sea.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="paso"><span>02</span>
+                    <h4>Compara en el mapa</h4>
+                    <p>Ve tiendas rankeadas por mejor precio-calidad.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="paso"><span>03</span>
+                    <h4>Ve o pide un Shopper</h4>
+                    <p>Ve directo al mejor lugar o pide que te compren.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mapa" class="container my-5">
+        <h2 style="color:var(--champagne);font-weight:900;">Busca y compara en el mapa</h2>
+        <p style="color:#c9c9c9;">Filtra por categoría y zona. Haz clic en un pin para resaltar la tienda.</p>
+        <div class="row g-3 mt-2">
+            <div class="col-lg-4">
+                <div class="seccion-clara"
+                    style="background:var(--profundo);color:white;border:1px solid var(--bronce);">
+                    <label><b>Categoría</b></label>
+                    <div class="d-flex flex-wrap gap-2 mt-2" id="chipsCat"></div>
+                    <label class="mt-3"><b>Zona</b></label>
+                    <select id="fZona" onchange="filtrar()" style="background:white;">
+                        <option value="">Todas las zonas</option>
+                        <option>El Hueco</option>
+                        <option>Junín</option>
+                        <option>Carabobo</option>
+                        <option>Parque Berrío</option>
+                    </select>
+                    <label><b>Ordenar</b></label>
+                    <select id="fOrden" onchange="filtrar()" style="background:white;">
+                        <option value="calidad">Mejor precio-calidad</option>
+                        <option value="barato">Más barato primero</option>
+                    </select>
+                    <input id="fTexto" placeholder="Buscar tienda o producto..." onkeyup="filtrar()"
+                        style="background:white;">
+                    <p class="small mt-2" style="color:#d0d0d0;">Tip: busca "tenis" o "tecnología" para ver el demo.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="mapa" id="mapaDiv">
+                    <div
+                        style="position:absolute;top:12px;left:12px;background:var(--noche);padding:8px 12px;border-radius:10px;border:1px solid var(--bronce);z-index:2;">
+                        <b style="color:var(--champagne);">CENTRO DE MEDELLÍN - MAPA DE EJEMPLO</b><br><small>Parque
+                            Berrío • Junín • El Hueco • Carabobo</small></div>
+                    <div style="position:absolute;top:80px;left:20px;color:#8fa8c8;font-size:.85rem;">↑ Junín</div>
+                    <div style="position:absolute;bottom:20px;left:20px;color:#8fa8c8;font-size:.85rem;">Metro - Parque
+                        Berrío</div>
+                    <div style="position:absolute;bottom:20px;right:20px;color:#8fa8c8;font-size:.85rem;">El Hueco →
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tiendas" class="row g-4 mt-4"></div>
+    </section>
+
+    <section id="shopper" class="container my-5">
+        <h2 style="color:var(--champagne);font-weight:900;">Personal Shopper</h2>
+        <p style="color:#c9c9c9;">Tú decides: que te compren, o ser quien compra.</p>
+        <div class="row g-4 mt-2">
+            <div class="col-md-6">
+                <div class="seccion-clara h-100">
+                    <h3>🛒 Necesito que me compren</h3>
+                    <p style="color:#696E75;">No quieres bajar al Centro, pero sí comprar allá. Pide un Shopper.</p>
+                    <form onsubmit="exito(event,'ok1')">
+                        <input placeholder="¿Qué necesitas comprar? Ej: tenis blancos talla 40" required>
+                        <input placeholder="Presupuesto Ej: $150.000" required>
+                        <select required>
+                            <option value="">Zona preferida</option>
+                            <option>El Hueco</option>
+                            <option>Junín</option>
+                            <option>Carabobo</option>
+                            <option>Parque Berrío</option>
+                            <option>Cualquiera</option>
+                        </select>
+                        <input type="date" required>
+                        <button class="btn-oro w-100">Solicitar Shopper</button>
+                        <p id="ok1" class="mt-2 fw-bold" style="display:none;color:green;">¡Listo! Te contactaremos
+                            pronto.</p>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="seccion-clara h-100"
+                    style="background:var(--profundo);color:white;border:1px solid var(--bronce);">
+                    <h3 style="color:var(--champagne);">🚶 Quiero ser Shopper</h3>
+                    <p style="color:#d0d0d0;">Te encanta andar el Centro. Gana dinero comprando por otros.</p>
+                    <form onsubmit="exito(event,'ok2')">
+                        <input placeholder="Tu nombre" required style="background:white;">
+                        <input placeholder="Tu WhatsApp" required style="background:white;">
+                        <select required style="background:white;">
+                            <option value="">Zona que más recorres</option>
+                            <option>El Hueco</option>
+                            <option>Junín</option>
+                            <option>Carabobo</option>
+                            <option>Parque Berrío</option>
+                        </select>
+                        <textarea placeholder="¿Qué sueles comprar? Ej: tenis, tecnología..."
+                            style="background:white;"></textarea>
+                        <button class="btn-oro w-100">Registrarme como Shopper</button>
+                        <p id="ok2" class="mt-2 fw-bold" style="display:none;color:var(--calido);">¡Listo! Te
+                            contactaremos pronto.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <h2 style="color:var(--champagne);font-weight:900;">Tiendas destacadas</h2>
+        <div id="destacadas" class="row g-4 mt-2"></div>
+    </section>
+
+    <section class="container my-5">
+        <h2 style="color:var(--champagne);font-weight:900;">Lo que dicen en el Centro</h2>
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <div class="paso">"No conocía el Centro y encontré los tenis más baratos en El Hueco gracias a
+                    LOLE."<br><b style="color:var(--champagne);">— Camila, Laureles</b></div>
+            </div>
+            <div class="col-md-4">
+                <div class="paso">"Pedí un Shopper para un celular y me llegó el mismo día."<br><b
+                        style="color:var(--champagne);">— Andrés, Envigado</b></div>
+            </div>
+            <div class="col-md-4">
+                <div class="paso">"Soy Shopper y ahora recorro el Centro ganando por lo que me gusta hacer."<br><b
+                        style="color:var(--champagne);">— Luisa, Centro</b></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <div class="seccion-clara">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h3>¿Tienes una tienda en el Centro? Regístrala gratis</h3>
+                    <p style="color:#696E75;">Aparece cuando alguien busque tu producto. Registro directo en la web.</p>
+                </div>
+                <div class="col-md-6">
+                    <form onsubmit="exito(event,'okTienda')">
+                        <input placeholder="Nombre de la tienda" required>
+                        <div class="row g-2">
+                            <div class="col-6"><select required>
+                                    <option value="">Zona</option>
+                                    <option>El Hueco</option>
+                                    <option>Junín</option>
+                                    <option>Carabobo</option>
+                                    <option>Parque Berrío</option>
+                                </select></div>
+                            <div class="col-6"><select required>
+                                    <option value="">Categoría</option>
+                                    <option>Tenis</option>
+                                    <option>Tecnología</option>
+                                    <option>Moda</option>
+                                    <option>Electrodomésticos</option>
+                                    <option>Hogar</option>
+                                </select></div>
+                        </div>
+                        <input placeholder="WhatsApp de la tienda" required>
+                        <button class="btn-oro w-100">Registrar mi tienda</button>
+                        <p id="okTienda" class="mt-2 fw-bold" style="display:none;color:green;">¡Listo! Tu tienda quedó
+                            registrada.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 text-center">
+        <p class="mb-1" style="color:var(--champagne);font-weight:900;">📍🛍️ LOLE-APP</p>
+        <p>Junín • El Hueco • Carabobo • Parque Berrío</p>
+        <p class="small">Hecho en Medellín • © 2026 LOLE-APP</p>
+    </footer>
+
+    <script>
+        const tiendas = [
+            { id: 1, nombre: "Tenis El Hueco Prime", zona: "El Hueco", cat: "Tenis", score: 4.9, precio: "$", prod: "Tenis blancos y deportivos", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600", x: "78%", y: "68%" },
+            { id: 2, nombre: "Sport Junín", zona: "Junín", cat: "Tenis", score: 4.7, precio: "$$", prod: "Tenis originales", img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600", x: "28%", y: "28%" },
+            { id: 3, nombre: "Calzado Carabobo Total", zona: "Carabobo", cat: "Tenis", score: 4.6, precio: "$", prod: "Tenis al por mayor", img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600", x: "55%", y: "50%" },
+            { id: 4, nombre: "Sneaker Berrío", zona: "Parque Berrío", cat: "Tenis", score: 4.5, precio: "$$", prod: "Tenis urbanos", img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600", x: "35%", y: "70%" },
+            { id: 5, nombre: "Tecno Carabobo", zona: "Carabobo", cat: "Tecnología", score: 4.9, precio: "$$", prod: "Celulares, audífonos, cargadores", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600", x: "60%", y: "38%" },
+            { id: 6, nombre: "Mundo Celular Berrío", zona: "Parque Berrío", cat: "Tecnología", score: 4.8, precio: "$$", prod: "Celulares y accesorios", img: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600", x: "42%", y: "58%" },
+            { id: 7, nombre: "Tecno Hueco Pro", zona: "El Hueco", cat: "Tecnología", score: 4.7, precio: "$", prod: "Audífonos, parlantes, relojes", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600", x: "82%", y: "45%" },
+            { id: 8, nombre: "Junín Tech", zona: "Junín", cat: "Tecnología", score: 4.6, precio: "$$$", prod: "Laptops y tablets", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600", x: "22%", y: "48%" },
+        ];
+        let catActiva = "";
+        const cats = ["Todas", "Tenis", "Tecnología", "Moda", "Electrodomésticos", "Hogar"];
+        function renderChips() {
+            document.getElementById('chipsCat').innerHTML = cats.map(c => `<button type="button" class="chip ${catActiva === c || (c === "Todas" && catActiva === "") ? 'activo' : ''}" onclick="setCat('${c}')">${c}</button>`).join('');
+        }
+        function setCat(c) { catActiva = c === "Todas" ? "" : c; renderChips(); filtrar(); }
+        function buscarHero(e) { e.preventDefault(); document.getElementById('fTexto').value = document.getElementById('qHero').value; filtrar(); document.getElementById('mapa').scrollIntoView(); }
+        function filtrar() {
+            let texto = document.getElementById('fTexto').value.toLowerCase();
+            let zona = document.getElementById('fZona').value;
+            let orden = document.getElementById('fOrden').value;
+            let lista = tiendas.filter(t => (!catActiva || t.cat === catActiva) && (!zona || t.zona === zona) && ((t.nombre + t.prod + t.cat).toLowerCase().includes(texto)));
+            lista.sort((a, b) => orden === "barato" ? a.score - b.score : b.score - a.score);
+            let mapa = document.getElementById('mapaDiv');
+            mapa.querySelectorAll('.pin').forEach(p => p.remove());
+            lista.forEach(t => {
+                let pin = document.createElement('div'); pin.className = 'pin'; pin.style.left = t.x; pin.style.top = t.y; pin.innerHTML = '<i class="bi bi-geo-alt-fill"></i>'; pin.onclick = () => resaltar(t.id); mapa.appendChild(pin);
+            });
+            document.getElementById('tiendas').innerHTML = lista.length ? lista.map(t => card(t)).join('') : '<p class="text-white">No hay tiendas para ese filtro. Prueba con tenis o tecnología.</p>';
+            document.getElementById('destacadas').innerHTML = tiendas.slice(0, 6).map(t => card(t)).join('');
+        }
+        function card(t) {
+            return `<div class="col-md-4"><div class="card-tienda" id="tienda-${t.id}"><img src="${t.img}"><div class="p-3"><span class="badge-zona">${t.zona}</span> <span class="badge bg-success">★ ${t.score}/5 precio-calidad</span><h5 class="mt-2" style="color:var(--champagne);">${t.nombre}</h5><p class="mb-1"><b>${t.cat}</b> • ${t.prod}</p><p style="color:#d0d0d0;font-size:.9rem;">Rango: ${t.precio} • ${t.zona}</p><div class="d-flex gap-2"><button class="btn-oro flex-fill" onclick="resaltar(${t.id})">Ver en mapa</button><button class="btn-linea flex-fill" onclick="alert('${t.nombre} - ${t.zona}\\n${t.prod}\\nPrecio-calidad: ${t.score}/5')">Ver tienda</button></div></div></div></div>`;
+        }
+        function resaltar(id) {
+            document.querySelectorAll('.card-tienda').forEach(c => c.classList.remove('activa'));
+            let el = document.getElementById('tienda-' + id); if (el) { el.classList.add('activa'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            let t = tiendas.find(x => x.id === id); if (t) { alert(t.nombre + ' - ' + t.zona + '\n' + t.prod + '\nPrecio-calidad: ' + t.score + '/5'); }
+        }
+        function exito(e, id) { e.preventDefault(); document.getElementById(id).style.display = 'block'; e.target.reset(); }
+        renderChips(); filtrar();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
