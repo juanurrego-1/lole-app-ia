@@ -223,6 +223,12 @@
             font-weight: 800;
         }
 
+        .logo {
+            height: 3rem;
+            width: auto;
+
+        }
+
         footer {
             border-top: 2px solid var(--bronce);
             color: var(--gris);
@@ -234,7 +240,9 @@
 
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">📍🛍️ LOLE-APP</a>
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="images/logo2.png" alt="logo de lole app">
+            </a>
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu"><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="menu">
@@ -275,9 +283,8 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <img src="https://images.unsplash.com/photo-1481437156560-3205f6a55735?w=800"
-                        class="w-100 rounded-4" style="border:2px solid var(--bronce);height:340px;object-fit:cover;"
-                        alt="Centro Medellín">
+                    <img src="images/centro.png" class="w-100 rounded-4"
+                        style="border:2px solid var(--bronce);height:340px;object-fit:cover;" alt="Centro Medellín">
                     <p class="small mt-2 text-center" style="color:#bdbdbd;">El Hueco • Junín • Carabobo • Parque Berrío
                         • Metro</p>
                 </div>
@@ -341,7 +348,8 @@
                     <div
                         style="position:absolute;top:12px;left:12px;background:var(--noche);padding:8px 12px;border-radius:10px;border:1px solid var(--bronce);z-index:2;">
                         <b style="color:var(--champagne);">CENTRO DE MEDELLÍN - MAPA DE EJEMPLO</b><br><small>Parque
-                            Berrío • Junín • El Hueco • Carabobo</small></div>
+                            Berrío • Junín • El Hueco • Carabobo</small>
+                    </div>
                     <div style="position:absolute;top:80px;left:20px;color:#8fa8c8;font-size:.85rem;">↑ Junín</div>
                     <div style="position:absolute;bottom:20px;left:20px;color:#8fa8c8;font-size:.85rem;">Metro - Parque
                         Berrío</div>
@@ -467,7 +475,8 @@
     </section>
 
     <footer class="py-4 text-center">
-        <p class="mb-1" style="color:var(--champagne);font-weight:900;">📍🛍️ LOLE-APP</p>
+        <img class="logo" src="images/logo2.png" alt="logo de lole app">
+
         <p>Junín • El Hueco • Carabobo • Parque Berrío</p>
         <p class="small">Hecho en Medellín • © 2026 LOLE-APP</p>
     </footer>
